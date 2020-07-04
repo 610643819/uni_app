@@ -1,11 +1,7 @@
 <template>
 	<view>
 		<!-- 搜索朗 -->
-		<view class="searchBox">
-			<!-- input有点击事件 @focus聚焦 -->
-			<input class="search" type="text" confirm-type="search" value="搜索" />
-			<icon class="searchIcon" type="search" size="18" />
-		</view>
+	<SearchLink></SearchLink>
 		<!-- banner -->
 		<view class="banner">
 			<swiper :indicator-dots="true" circular="true" :interval="3000" :autoplay="true" :duration="300">
@@ -23,9 +19,9 @@
 			</view>
 		</view>
 		<!-- 楼层 -->
-		<view class="floorData">
+		<view >
 			<!-- 加跳转 -->
-			<view v-for="(item,index) in floordata" :key="index">
+			<view class="floorData" v-for="(item,index) in floordata" :key="index">
 				<view class="floortitle">
 					<image :src="item.floor_title.image_src" mode=""></image>
 				</view>
@@ -51,11 +47,12 @@
 </template>
 
 <script>
+	import SearchLink from '../../components/SearchLink.vue';
 	import {
 		getBannerImg,
 		getCatitem,
 		getFloordata
-	} from '../../utils/http.js'
+	} from '../../utils/api.js'
 	export default {
 		data() {
 			return {
@@ -63,9 +60,6 @@
 				catitem: [],
 				floordata: {}
 			}
-		},
-		methods: {
-
 		},
 		mounted() {
 			// 获取banner图
@@ -79,31 +73,18 @@
 			getFloordata().then(res => {
 				this.floordata = res
 			})
-		}
+		},
+		components: {
+			SearchLink
+		},
 	}
 </script>
 
 <style scoped>
-	.search {
-		position: absolute;
-		background-color: #F4F4F4;
-		width: 95%;
-		height: 60rpx;
-		text-align: center;
-		margin: 0 25rpx 0 25rpx;
-		border-radius: 20rpx;
-		color: #a8a8a8;
-	}
 
-	.searchIcon {
-		position: relative;
-		top: -15rpx;
-		left: 50%;
-		transform: translateX(-170%);
-	}
 
 	.banner {
-		margin-top: 20rpx;
+		margin-top: 40rpx;
 		border-top: 2rpx ridge #C8C7CC;
 		width: 100%;
 	}
@@ -123,7 +104,9 @@
 		width: 128rpx;
 		height: 140rpx;
 	}
-
+	.floorData{
+		border-bottom: 2rpx solid #A8A8A8 ;
+	}
 	.floortitle {
 		background-color: #F4F4F4;
 		margin-top: 40rpx;

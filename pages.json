@@ -3,17 +3,21 @@
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/home/home",
-			"style": {
-			}
+			"style": {}
 		}, {
 			"path": "pages/shop/shop",
+			"style": {}
+		}, {
+			"path": "pages/category/category",
 			"style": {
+				"enablePullDownRefresh": true, //设置为true表示当前页面开启下拉刷新
+				"backgroundTextStyle": "dark" //下拉 loading 的样式，仅支持 dark/light
+
 			}
 		}
 	],
 	"globalStyle": {
-		"enablePullDownRefresh":true,
-		"transparentTitle":"none",
+		"transparentTitle": "none",
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "蚂蚁购物",
 		"navigationBarBackgroundColor": "#FFFFFF",
@@ -38,8 +42,8 @@
 			"iconPath": "static/tabs/icon_home@3x.png",
 			"selectedIconPath": "static/tabs/icon_home_active@3x.png",
 			"text": "首页"
-		},{
-			"pagePath": "pages/home/home",
+		}, {
+			"pagePath": "pages/category/category",
 			"iconPath": "static/tabs/icon_category@3x.png",
 			"selectedIconPath": "static/tabs/icon_category_active@3x.png",
 			"text": "分类"
@@ -48,7 +52,7 @@
 			"iconPath": "static/tabs/icon_cart@3x.png",
 			"selectedIconPath": "static/tabs/icon_cart_active@3x.png",
 			"text": "购物车"
-		},{
+		}, {
 			"pagePath": "pages/home/home",
 			"iconPath": "static/tabs/icon_me@3x.png",
 			"selectedIconPath": "static/tabs/icon_me_active@3x.png",
