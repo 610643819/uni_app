@@ -2,14 +2,15 @@
 	<view>
 		<view class="searchBox">
 			<!-- input有点击事件 @focus聚焦 -->
-			<input class="search" type="text" confirm-type="search" value="搜索" />
-			<!-- <icon class="searchIcon" type="search" size="18" /> -->
+			<input class="search" type="text" confirm-type="search" placeholder="搜索" :value="id" />
+			<icon class="searchIcon" type="search" size="18" />
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props:['id'],
 		data() {
 			return {
 			}
@@ -20,12 +21,12 @@
 <style scoped>
 	.searchBox{
 		height: 100rpx;
-		background-color: #eb4450;
+		background-color:#dfdfdf;
 		display: flex;
 		align-items: center;
 	}
 	.search {
-		/* position: absolute; */
+		position: absolute;
 		background-color: #F4F4F4;
 		width: 95%;
 		height: 60rpx;

@@ -19,10 +19,11 @@
 						{{item.cat_name}}
 					</view>
 					<view class="rightItem">
-
 						<view class="rightItemSon" v-for="(item, index) in item.children">
-							<image :src="item.cat_icon" mode=""></image>
-							<text>{{item.cat_name}}</text>
+							<navigator :url="`../searchList/searchList?id=${item.cat_name}`">
+								<image :src="item.cat_icon" mode=""></image>
+								<text style="display: block;">{{item.cat_name}}</text>
+							</navigator>
 						</view>
 					</view>
 				</view>
@@ -46,19 +47,15 @@
 		methods: {
 			styleIndex(index) {
 				this.leftStyleIndex = index
-			},
-			onPullDownRefresh(){
-				getCategoryes().then(res => {
-					this.categoryList = res
-					uni.stopPullDownRefresh()  //停止下拉刷新动画
-				})
 			}
 		},
 		mounted() {
 			getCategoryes().then(res => {
 				this.categoryList = res
-				console.log(res)
+			}).catch(err => {
+				console.log(err)
 			})
+			console.log(123)
 		},
 		components: {
 			SearchLink
