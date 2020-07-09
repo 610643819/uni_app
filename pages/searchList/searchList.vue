@@ -1,17 +1,20 @@
 <template>
 	<view>
-		<!-- 搜索栏 -->
-		<SearchLink :id="id"></SearchLink>
-		<!-- 内容 -->
-		<view class="main" v-if="searchList">
+		<view :class="[!pull ? 'topBox' : 'topBox2']">
+			<!-- 搜索栏 -->
+			<SearchLink :value="id"></SearchLink>
 			<!-- 头部 -->
 			<view class="header">
 				<text :class="{headerRed:headerListIndex === index}" v-for="(item, index) in headerList" @click="headerRed(index)">
 					{{item}}
 				</text>
 			</view>
+		</view>
+		<!-- 内容 -->
+		<view class="main" v-if="searchList">
+
 			<!-- list -->
-			<view class="list" v-for="(item, index) in searchList">
+			<view class="list" v-for="(item, index) in searchList" @click="toDetail(item.goods_id)">
 				<!-- 图面  kuang 200-220px-->
 				<view class="img">
 					<image @error="imageError" :src="item.goods_small_logo" mode="widthFix"></image>
@@ -22,14 +25,14 @@
 					<text class="text2">￥{{item.goods_price}}</text>
 				</view>
 			</view>
-		</view>
 
+		</view>
 	</view>
 </template>
 
 <script>
 	import {
-		getSearch
+		getSearch,
 	} from '../../utils/api.js'
 	import SearchLink from '../../components/SearchLink.vue'
 	export default {
@@ -40,10 +43,18 @@
 				headerList: ['综合', '销量', '价格'],
 				headerListIndex: 0,
 				searchList: false,
-				onReachOff: true
+				onReachOff: true,
+				pull: true
 			}
 		},
 		methods: {
+			// 跳转到详情页
+			toDetail(id) {
+				console.log(id)
+				wx.navigateTo({
+					url: `../detail/detail?id=${id}`,
+				})
+			},
 			headerRed(index) {
 				this.headerListIndex = index
 			},
@@ -53,6 +64,7 @@
 			},
 			// 数据请求
 			getSearchList() {
+				this.pull = true
 				// 显式提示框
 				uni.showLoading({
 					title: '加载中'
@@ -66,7 +78,6 @@
 					},
 				}).then(res => {
 					this.searchList = res
-					console.log(this.searchList)
 					// 关闭加载提示框
 					uni.hideLoading()
 				}).catch(err => {
@@ -75,6 +86,8 @@
 			},
 			// 下来刷新
 			onPullDownRefresh() {
+				console.log(123123)
+				this.pull = false
 				this.pagenum = 0
 				this.getSearchList()
 			},
@@ -82,7 +95,7 @@
 			onReachBottom() {
 				if (!this.onReachOff) return
 				this.onReachOff = false
-				++this.pagenum
+					++this.pagenum
 				uni.showLoading({
 					title: '加载更多'
 				})
@@ -95,10 +108,10 @@
 					},
 				}).then(res => {
 					// 没有数据了
-					if(res.length <= 1) {
+					if (res.length <= 1) {
 						uni.showToast({
-						    title: '没有更多东西了哦',
-						    duration: 2000
+							title: '没有更多东西了哦',
+							duration: 2000
 						});
 						return
 					}
@@ -121,7 +134,13 @@
 </script>
 
 <style lang="less" scoped>
-	.main {
+	.topBox2 {
+		position: sticky;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color: #FFFFFF;
+
 		.header {
 			display: flex;
 			justify-content: space-around;
@@ -138,6 +157,37 @@
 				color: red;
 			}
 		}
+	}
+
+	.topBox {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+
+		background-color: #FFFFFF;
+
+		.header {
+			display: flex;
+			justify-content: space-around;
+
+			height: 100rpx;
+			width: 100%;
+			border-bottom: 1rpx solid black;
+
+			text {
+				font-size: 36rpx;
+				line-height: 100rpx;
+			}
+
+			.headerRed {
+				color: red;
+			}
+		}
+	}
+
+	.main {
+		// margin-top: 100rpx;
 
 		.list {
 			display: flex;

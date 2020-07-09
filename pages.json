@@ -17,6 +17,10 @@
 				"enablePullDownRefresh": true, //设置为true表示当前页面开启下拉刷新
 				"backgroundTextStyle": "dark" //下拉 loading 的样式，仅支持 dark/light
 			}
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+			}
 		}
 	],
 	"globalStyle": {
@@ -56,7 +60,7 @@
 			"selectedIconPath": "static/tabs/icon_cart_active@3x.png",
 			"text": "购物车"
 		}, {
-			"pagePath": "pages/home/home",
+			"pagePath": "pages/shop/shop",
 			"iconPath": "static/tabs/icon_me@3x.png",
 			"selectedIconPath": "static/tabs/icon_me_active@3x.png",
 			"text": "我的"

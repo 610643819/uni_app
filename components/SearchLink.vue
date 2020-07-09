@@ -2,15 +2,20 @@
 	<view>
 		<view class="searchBox">
 			<!-- input有点击事件 @focus聚焦 -->
-			<input class="search" type="text" confirm-type="search" placeholder="搜索" :value="id" />
-			<icon class="searchIcon" type="search" size="18" />
+			<input class="search" type="text" confirm-type="search" placeholder="搜索" v-model="value" />
+			<icon v-if="value === '' " class="searchIcon" type="search" size="18" />
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props:['id'],
+		props: {
+			value:{
+				type:String,
+				default:''
+			}
+		},
 		data() {
 			return {
 			}
@@ -19,6 +24,9 @@
 </script>
 
 <style scoped>
+	.iconShow{
+		display: none;
+	}
 	.searchBox{
 		height: 100rpx;
 		background-color:#dfdfdf;

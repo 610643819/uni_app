@@ -19,10 +19,12 @@
 						{{item.cat_name}}
 					</view>
 					<view class="rightItem">
-						<view class="rightItemSon" v-for="(item, index) in item.children">
+						<view class="rightItemSon" v-for="(item, index) in item.children" :key="index">
 							<navigator :url="`../searchList/searchList?id=${item.cat_name}`">
-								<image :src="item.cat_icon" mode=""></image>
-								<text style="display: block;">{{item.cat_name}}</text>
+								<view >
+									<image :src="item.cat_icon" mode=""></image>
+									<text style="display: block;">{{item.cat_name}}</text>
+								</view>
 							</navigator>
 						</view>
 					</view>
@@ -55,7 +57,6 @@
 			}).catch(err => {
 				console.log(err)
 			})
-			console.log(123)
 		},
 		components: {
 			SearchLink

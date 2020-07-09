@@ -14,6 +14,7 @@ function getCatitem() {
 	return uni.request({
 		url: URL_BASE + '/api/public/v1/home/catitems'
 	}).then(res => {
+		console.log('分类 ok')
 		return res[1].data.message
 
 	})
@@ -47,7 +48,18 @@ function getSearch ({url, data}) {
 		data,
 		url: URL_BASE + url
 	}).then(res => {
+		console.log('搜索', res[1].data.message.goods)
 		return res[1].data.message.goods
+	})
+}
+
+// https://www.uinav.com/api/public/v1/goods/detail?goods_id=57396
+// 商品详情
+function getGoods_Id ( id ) {
+	return uni.request({
+		url: URL_BASE + '/api/public/v1/goods/detail?goods_id=' + id
+	}).then(res => {
+		return res[1].data.message
 	})
 }
 // -----------------------------------------------------------
@@ -101,5 +113,6 @@ export {
 	getFloordata,
 	getCategoryes,
 	myrequest,
-	getSearch
+	getSearch,
+	getGoods_Id
 }
